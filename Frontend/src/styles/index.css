@@ -1,4 +1,232 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  background-color: #020617;
+  color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.bg-obsidian-950 {
+  background-color: #020617;
+}
+
+.text-white {
+  color: white;
+}
+
+.text-gray-400 {
+  color: #94a3b8;
+}
+
+.text-gray-500 {
+  color: #64748b;
+}
+
+.text-gray-600 {
+  color: #475569;
+}
+
+.text-gray-700 {
+  color: #334155;
+}
+
+.text-volt-400 {
+  color: #38bdf8;
+}
+
+.bg-volt-400 {
+  background-color: #38bdf8;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+
+.gap-3 {
+  gap: 12px;
+}
+
+.gap-4 {
+  gap: 16px;
+}
+
+.gap-6 {
+  gap: 24px;
+}
+
+.max-w-4xl {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.max-w-5xl {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.max-w-xl {
+  max-width: 700px;
+  margin: auto;
+}
+
+.px-6 {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.py-5 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.pb-24 {
+  padding-bottom: 100px;
+}
+
+.pt-24 {
+  padding-top: 100px;
+}
+
+.mt-6 {
+  margin-top: 24px;
+}
+
+.mt-10 {
+  margin-top: 40px;
+}
+
+.mt-16 {
+  margin-top: 64px;
+}
+
+.mb-2 {
+  margin-bottom: 8px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
+.mb-4 {
+  margin-bottom: 16px;
+}
+
+.mb-8 {
+  margin-bottom: 32px;
+}
+
+.mb-12 {
+  margin-bottom: 48px;
+}
+
+.text-5xl {
+  font-size: 64px;
+  font-weight: bold;
+}
+
+.text-3xl {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.leading-relaxed {
+  line-height: 1.7;
+}
+
+.btn-volt {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-volt:hover {
+  background: #1d4ed8;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #334155;
+  color: white;
+  padding: 14px 24px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.glow-card,
+.glass-card {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.tag-volt {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  padding: 10px 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.section-label {
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+nav,
+section,
+footer {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .grid-cols-1 {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

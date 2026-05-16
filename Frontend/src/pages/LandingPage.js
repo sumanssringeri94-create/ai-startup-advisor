@@ -23,14 +23,11 @@ export default function LandingPage() {
   }, [isAuthenticated, navigate]);
 
   // Parallax subtle effect on hero
+    // Keep hero text fixed
   useEffect(() => {
-    const handleScroll = () => {
-      if (heroRef.current) {
-        heroRef.current.style.transform = `translateY(${window.scrollY * 0.3}px)`;
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    if (heroRef.current) {
+      heroRef.current.style.transform = "translateY(0px)";
+    }
   }, []);
 
   return (
