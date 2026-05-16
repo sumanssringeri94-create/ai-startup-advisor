@@ -109,7 +109,7 @@ export default function ChatPage() {
       }
     };
     loadHistory();
-  }, [user.id]);
+  }, [user?._id]);
 
   // Auto-scroll to bottom
   useEffect(() => {

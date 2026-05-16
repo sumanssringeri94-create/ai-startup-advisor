@@ -1,6 +1,9 @@
+// src/pages/LoginPage.js
+
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { authAPI } from "../services/api";
 
 export default function LoginPage() {
 
@@ -13,6 +16,7 @@ export default function LoginPage() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setForm({
@@ -25,22 +29,30 @@ export default function LoginPage() {
     e.preventDefault();
 
     setLoading(true);
+    setError("");
 
     try {
+      // Call real backend — returns { success, token, user: { id, name, email } }
+      const response = await authAPI.login(form);
 
-      // Fake login success
-      const fakeUser = {
-        name: "Founder",
-        email: form.email,
-      };
+      // Persist JWT so the Axios interceptor attaches it to every request
+      localStorage.setItem("token", response.token);
 
-      login(fakeUser);
+      // Store user in context — note backend returns `id`, not `_id`
+      // We normalize to _id here so the rest of the app works consistently
+      login({
+        _id: response.user.id,
+        name: response.user.name,
+        email: response.user.email,
+        createdAt: response.user.createdAt,
+      });
 
-      // Move to dashboard
       navigate("/dashboard");
 
-    } catch (error) {
-      alert("Login Failed");
+    } catch (err) {
+      setError(
+        err?.response?.data?.message || "Login failed. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -59,7 +71,6 @@ export default function LoginPage() {
         fontFamily: "Arial",
       }}
     >
-
       <div
         style={{
           width: "100%",
@@ -70,7 +81,6 @@ export default function LoginPage() {
           border: "1px solid #1e293b",
         }}
       >
-
         <div style={{ textAlign: "center", marginBottom: "30px" }}>
           <h1 style={{ fontSize: "36px", marginBottom: "10px" }}>
             AdvisorAI
@@ -80,6 +90,23 @@ export default function LoginPage() {
             Sign in to continue
           </p>
         </div>
+
+        {/* ERROR */}
+        {error && (
+          <div
+            style={{
+              background: "rgba(239,68,68,0.1)",
+              border: "1px solid rgba(239,68,68,0.3)",
+              color: "#f87171",
+              padding: "12px 16px",
+              borderRadius: "10px",
+              marginBottom: "20px",
+              fontSize: "14px",
+            }}
+          >
+            ⚠ {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
 
@@ -100,6 +127,7 @@ export default function LoginPage() {
                 borderRadius: "10px",
                 border: "none",
                 outline: "none",
+                boxSizing: "border-box",
               }}
             />
           </div>
@@ -121,6 +149,7 @@ export default function LoginPage() {
                 borderRadius: "10px",
                 border: "none",
                 outline: "none",
+                boxSizing: "border-box",
               }}
             />
           </div>
@@ -131,12 +160,13 @@ export default function LoginPage() {
             style={{
               width: "100%",
               padding: "14px",
-              background: "#2563eb",
+              background: loading ? "#1d4ed8" : "#2563eb",
               color: "white",
               border: "none",
               borderRadius: "12px",
-              cursor: "pointer",
+              cursor: loading ? "not-allowed" : "pointer",
               fontSize: "16px",
+              opacity: loading ? 0.7 : 1,
             }}
           >
             {loading ? "Signing in..." : "Sign In"}
@@ -151,7 +181,7 @@ export default function LoginPage() {
             color: "#94a3b8",
           }}
         >
-          Don’t have an account?{" "}
+          Don't have an account?{" "}
           <Link
             to="/signup"
             style={{

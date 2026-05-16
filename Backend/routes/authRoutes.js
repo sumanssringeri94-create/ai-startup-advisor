@@ -1,22 +1,16 @@
+// routes/authRoutes.js
+
 const express = require("express");
+const router  = express.Router();
 
-const router = express.Router();
+const { signup, login, getMe } = require("../controllers/authController");
+const { protect }              = require("../middleware/auth");
 
-// Signup Route
-router.post("/signup", (req, res) => {
-  res.json({
-    success: true,
-    message: "Signup successful",
-  });
-});
+// Public routes
+router.post("/signup", signup);
+router.post("/login",  login);
 
-// Login Route
-router.post("/login", (req, res) => {
-  res.json({
-    success: true,
-    message: "Login successful",
-    token: "sample-token",
-  });
-});
+// Protected route — requires valid JWT
+router.get("/me", protect, getMe);
 
 module.exports = router;

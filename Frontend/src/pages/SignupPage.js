@@ -28,9 +28,21 @@ export default function SignupPage() {
     setLoading(true);
     try {
       const res = await authAPI.signup(form);
-      const { token, user } = res.data;
+      console.log("✅ signup res:", res);
+      const { token, user } = res;
+      console.log("token:", token, "user:", user);
 
-      login(user, token);
+      // Persist JWT so Axios interceptor attaches it to every request
+      localStorage.setItem("token", token);
+
+      // Normalize id to _id so the rest of the app works consistently
+      login({
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+      });
+
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Signup failed. Please try again.");

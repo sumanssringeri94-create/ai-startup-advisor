@@ -1,22 +1,79 @@
-// src/components/AppLayout.js
-// Wraps all authenticated pages with sidebar + navbar
-
-import React from "react";
 import Sidebar from "./Sidebar";
-import Navbar from "./Navbar";
 
-const AppLayout = ({ children, title, subtitle }) => {
+export default function AppLayout({
+  children,
+  title,
+  subtitle,
+}) {
   return (
-    <div className="flex h-screen overflow-hidden bg-obsidian-950">
+    <div
+      style={{
+        display: "flex",
+        minHeight: "100vh",
+        background: "#070710",
+        color: "white",
+      }}
+    >
+      {/* Sidebar */}
       <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <Navbar title={title} subtitle={subtitle} />
-        <main className="flex-1 overflow-y-auto p-6">
-          {children}
-        </main>
+
+      {/* Main Content */}
+      <div
+        style={{
+          marginLeft: "260px",
+          width: "100%",
+          padding: "40px",
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            marginBottom: "40px",
+          }}
+        >
+          <div>
+            <h1
+              style={{
+                fontSize: "56px",
+                fontWeight: "700",
+                marginBottom: "10px",
+              }}
+            >
+              {title}
+            </h1>
+
+            <p
+              style={{
+                color: "#94a3b8",
+                fontSize: "18px",
+              }}
+            >
+              {subtitle}
+            </p>
+          </div>
+
+          <div style={{ textAlign: "right" }}>
+            <p style={{ color: "#64748b" }}>
+              Good evening,
+            </p>
+
+            <h2
+              style={{
+                marginTop: "6px",
+                fontSize: "28px",
+              }}
+            >
+              Founder
+            </h2>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        {children}
       </div>
     </div>
   );
-};
-
-export default AppLayout;
+}

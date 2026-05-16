@@ -17,10 +17,19 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// add this block right before your routes
+app.use((req, res, next) => {
+  console.log(`➡️  ${req.method} ${req.originalUrl}`);
+  next();
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/startup", startupRoutes);
 app.use("/api/chat", chatRoutes);
+
+// ADD THIS LINE
+app._router.stack.forEach(r => r.route && console.log(r.route.path));
 
 // Test Route
 app.get("/", (req, res) => {
